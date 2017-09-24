@@ -55,7 +55,7 @@ export default class App extends React.Component {
       })
     }
   }
-  last () {
+  previous () {
     const { active } = this.state
     if (active === 'minutes') {
       return this.setState({
@@ -68,6 +68,12 @@ export default class App extends React.Component {
         active: 'minutes'
       })
     }
+  }
+  shutdown () {
+    const { time } = this.state
+    const { hours, minutes, seconds } = time
+    const total = hours * 60 * 60 + minutes * 60 + seconds
+    alert(`time left: ${total} seconds`)
   }
   render () {
     this.letzteZeit = Date.now()
@@ -86,9 +92,9 @@ export default class App extends React.Component {
           {numberButtons}
         </div>
         <div>
-          <button onClick={() => this.last()}>&lt;</button>
+          <button onClick={() => this.previous()}>&lt;</button>
           <button onClick={() => this.next()}>&gt;</button>
-          <button>Start</button>
+          <button onClick={() => this.shutdown()}>Start</button>
         </div>
       </div>
     )
