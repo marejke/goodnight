@@ -2,6 +2,7 @@ const path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  target: 'electron-renderer',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',

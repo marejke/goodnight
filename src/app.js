@@ -135,6 +135,7 @@ export default class App extends React.Component {
       <div>
         <Display time={this.state.time} />
         <div>
+          {process.platform}
           {numberButtons}
         </div>
         <div>
