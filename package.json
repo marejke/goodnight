@@ -4,7 +4,9 @@
   "description": "easy tool to set computer asleep",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "electron": "NODE_ENV=development electron electron.js",
+    "webpack": "webpack -p"
   },
   "repository": {
     "type": "git",

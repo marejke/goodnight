@@ -10,15 +10,21 @@ function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'dist', 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  if (process.env.NODE_ENV === 'development') {
+    win.loadURL(url.format({
+      pathname: 'localhost:8080',
+      protocol: 'http:',
+      slashes: true
+    }))
 
-  // Open the DevTools.
-  win.webContents.openDevTools()
+    win.webContents.openDevTools()
+  } else {
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist', 'index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
