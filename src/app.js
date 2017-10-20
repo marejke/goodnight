@@ -1,68 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import styled from 'styled-components'
 import execa from 'execa'
-
-const Button = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0.5em 1em;
-  background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  `
-
-const Controls = styled.div`
-  display: flex;
-  justify-content: center;
-  `
-
-const NumberButton = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0.5em 1em;
-  background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-`
-
-const Numberpad = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-`
-
-const TimeInputDisplay = styled.div`
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-color: palevioletred;
-`
-
-const TimeDisplay = styled.div`
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-color: palevioletred;
-padding-top: 1em;
-font-size: 3em;
-`
-
-function Display (props) {
-  const {
-    hours,
-    minutes,
-    seconds
-  } = props.time
-
-  return (
-    <div>{hours}:{minutes}:{seconds}</div>
-  )
-}
-
-Display.propTypes = {
-  time: React.PropTypes.object
-}
+import {Button, Controls, NumberButton, Numberpad, TimeInputDisplay, TimeDisplay} from './styles.js'
+import Display from './components/display.js'
 
 export default class App extends React.Component {
   constructor () {
@@ -85,6 +25,7 @@ export default class App extends React.Component {
     this.reset = this.reset.bind(this)
     this.updateCountdown = this.updateCountdown.bind(this)
   }
+
   addTime (newTime) {
     const {
       time,
@@ -97,6 +38,7 @@ export default class App extends React.Component {
       time: time
     })
   }
+
   next () {
     const { active } = this.state
     if (active === 'hours') {
@@ -111,6 +53,7 @@ export default class App extends React.Component {
       })
     }
   }
+
   previous () {
     const { active } = this.state
     if (active === 'minutes') {
@@ -125,6 +68,7 @@ export default class App extends React.Component {
       })
     }
   }
+
   reset () {
     this.setState({
       time: {
@@ -151,6 +95,7 @@ export default class App extends React.Component {
     console.log(`shutdown in ${total} seconds`)
     window.requestAnimationFrame(this.updateCountdown)
   }
+
   updateCountdown () {
     if (!this.state.shutdownTime) {
       return
