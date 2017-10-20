@@ -1,5 +1,51 @@
 import React from 'react'
 import moment from 'moment'
+import styled from 'styled-components'
+
+const Button = styled.button`
+  border-radius: 3px;
+  padding: 0.25em 1em;
+  margin: 0.5em 1em;
+  background: transparent;
+  color: palevioletred;
+  border: 2px solid palevioletred;
+  `
+
+const Controls = styled.div`
+  display: flex;
+  justify-content: center;
+  `
+
+const NumberButton = styled.button`
+  border-radius: 3px;
+  padding: 0.25em 1em;
+  margin: 0.5em 1em;
+  background: transparent;
+  color: palevioletred;
+  border: 2px solid palevioletred;
+`
+
+const Numberpad = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`
+
+const TimeInputDisplay = styled.div`
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+color: palevioletred;
+`
+
+const TimeDisplay = styled.div`
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+color: palevioletred;
+padding-top: 1em;
+font-size: 3em;
+`
 
 function Display (props) {
   const {
@@ -126,26 +172,31 @@ export default class App extends React.Component {
   render () {
     const numberButtons = [...Array(10).keys()]
       .map((index) => (
-        <div key={index}>
-          <button onClick={() => this.addTime(index)}>{index}</button>
-        </div>
+        <NumberButton key={index} onClick={() => this.addTime(index)}>{index}</NumberButton>
       ))
 
     return (
       <div>
-        <Display time={this.state.time} />
+        <TimeInputDisplay>
+          <Display time={this.state.time} />
+        </TimeInputDisplay>
         <div>
-          {process.platform}
-          {numberButtons}
+          <Numberpad>
+            {numberButtons}
+          </Numberpad>
         </div>
+        <Controls>
+          <Button onClick={this.previous}>&lt;</Button>
+          <Button onClick={this.next}>&gt;</Button>
+        </Controls>
+        <Controls>
+          <Button onClick={this.startShutdown}>Start</Button>
+          <Button onClick={this.reset}>Reset</Button>
+        </Controls>
         <div>
-          <button onClick={this.previous}>&lt;</button>
-          <button onClick={this.next}>&gt;</button>
-          <button onClick={this.startShutdown}>Start</button>
-          <button onClick={this.reset}>Reset</button>
-        </div>
-        <div>
-          {this.state.timeLeft}
+          <TimeDisplay>
+            {this.state.timeLeft}
+          </TimeDisplay>
         </div>
       </div>
     )
