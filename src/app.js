@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import styled from 'styled-components'
+import execa from 'execa'
 
 const Button = styled.button`
   border-radius: 3px;
@@ -166,8 +167,14 @@ export default class App extends React.Component {
     }
 
     if (this.state.shutdownTime.isAfter(moment())) {
-      window.requestAnimationFrame(this.updateCountdown)
+      return window.requestAnimationFrame(this.updateCountdown)
     }
+
+    execa('pmset', ['sleepnow'], (result) => {
+      if (result.stderr) {
+        alert('An error occurred while sleeping the mac')
+      }
+    })
   }
   render () {
     const numberButtons = [...Array(10).keys()]
