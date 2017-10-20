@@ -2,10 +2,11 @@
   "name": "goodnight",
   "version": "0.0.0",
   "description": "easy tool to set computer asleep",
-  "main": "index.js",
+  "main": "electron.js",
   "scripts": {
     "dev": "webpack-dev-server",
     "electron": "NODE_ENV=development electron electron.js",
+    "package": "webpack && electron-packager . --out builds --icon=./assets/goodnight.icns --overwrite",
     "webpack": "webpack -p"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "electron": "^1.7.9",
+    "electron-packager": "^9.1.0",
     "eslint": "^4.6.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-react": "^5.0.0",
@@ -42,6 +44,8 @@
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "styled-components": "^2.2.1"
+    "spawn-sync": "^1.0.15",
+    "styled-components": "^2.2.1",
+    "try-thread-sleep": "^1.0.2"
   }
 }
