@@ -1,7 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 import execa from 'execa'
-import {Button, Controls, NumberButton, Numberpad, TimeInputDisplay, TimeDisplay} from './styles.js'
+import {
+  Wrapper, Button, Controls, NumberButton, Numberpad, TimeInputDisplay, TimeDisplay
+} from './styles.js'
 import Display from './components/display.js'
 
 export default class App extends React.Component {
@@ -24,6 +26,23 @@ export default class App extends React.Component {
     this.previous = this.previous.bind(this)
     this.reset = this.reset.bind(this)
     this.updateCountdown = this.updateCountdown.bind(this)
+
+    document.addEventListener('keyup', (e) => {
+      console.log(e)
+
+      if (event.key === 'ArrowRight') {
+        this.next()
+      }
+      if (event.key === 'ArrowLeft') {
+        this.previous()
+      }
+      if (event.code.includes('Digit')) {
+        this.addTime(parseInt(event.key))
+      }
+      if (event.key === 'Enter') {
+        this.startShutdown()
+      }
+    })
   }
 
   addTime (newTime) {
@@ -78,7 +97,8 @@ export default class App extends React.Component {
       },
       active: 'hours',
       timeLeft: '',
-      shutdownTime: null
+      shutdownTime: null,
+      totalSeconds: 0
     })
   }
 
@@ -89,7 +109,8 @@ export default class App extends React.Component {
     const shutdownTime = moment().add(total, 'seconds')
 
     this.setState({
-      shutdownTime
+      shutdownTime,
+      totalSeconds: total
     })
 
     console.log(`shutdown in ${total} seconds`)
@@ -129,27 +150,32 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <TimeInputDisplay>
-          <Display time={this.state.time} />
-        </TimeInputDisplay>
-        <div>
-          <Numberpad>
-            {numberButtons}
-          </Numberpad>
-        </div>
-        <Controls>
-          <Button onClick={this.previous}>&lt;</Button>
-          <Button onClick={this.next}>&gt;</Button>
-        </Controls>
-        <Controls>
-          <Button onClick={this.startShutdown}>Start</Button>
-          <Button onClick={this.reset}>Reset</Button>
-        </Controls>
-        <div>
-          <TimeDisplay>
-            {this.state.timeLeft}
-          </TimeDisplay>
-        </div>
+        <Wrapper animationDuration={this.state.totalSeconds}>
+          <Scene>
+            
+          </Scene>
+          <TimeInputDisplay>
+            <Display active={this.state.active} time={this.state.time} />
+          </TimeInputDisplay>
+          <div>
+            <Numberpad>
+              {numberButtons}
+            </Numberpad>
+          </div>
+          <Controls>
+            <Button onClick={this.previous}>&lt;</Button>
+            <Button onClick={this.next}>&gt;</Button>
+          </Controls>
+          <Controls>
+            <Button onClick={this.startShutdown}>Start</Button>
+            <Button onClick={this.reset}>Reset</Button>
+          </Controls>
+          <div>
+            <TimeDisplay>
+              {this.state.timeLeft}
+            </TimeDisplay>
+          </div>
+        </Wrapper>
       </div>
     )
   }
