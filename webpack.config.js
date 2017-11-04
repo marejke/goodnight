@@ -9,9 +9,12 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: 'goodnight'
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'goodnight',
+      template: 'src/index.html'
+    })
+  ],
   module: {
     rules: [
       {
