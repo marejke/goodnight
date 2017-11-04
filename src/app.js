@@ -151,9 +151,6 @@ export default class App extends React.Component {
     return (
       <div>
         <Wrapper animationDuration={this.state.totalSeconds}>
-          <Scene>
-            
-          </Scene>
           <TimeInputDisplay>
             <Display active={this.state.active} time={this.state.time} />
           </TimeInputDisplay>
