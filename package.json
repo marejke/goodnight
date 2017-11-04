@@ -1,25 +1,36 @@
 {
   "name": "goodnight",
   "version": "0.0.0",
-  "description": "easy tool to set computer asleep",
+  "description": "Easy tool to set your computer asleep",
   "main": "electron.js",
   "scripts": {
     "dev": "webpack-dev-server",
     "electron": "NODE_ENV=development electron electron.js",
     "package": "webpack && electron-packager . --out builds --icon=./assets/goodnight.icns --overwrite",
     "webpack": "webpack -p",
-    "installer": "electron-installer-dmg builds/goodnight-darwin-x64/goodnight.app goodnight"
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marejke/goodnight.git"
   },
-  "author": "marejke schulz <marejkeschulz@gmail.com>",
+  "author": "Marejke Schulz <marejkeschulz@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/marejke/goodnight/issues"
   },
   "homepage": "https://github.com/marejke/goodnight#readme",
+  "build": {
+    "appId": "goodnight.oss",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "directories": {
+      "buildResources": "assets",
+      "output": "builds"
+    }
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -27,8 +38,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "electron": "^1.7.9",
-    "electron-installer-dmg": "^0.2.1",
-    "electron-packager": "^9.1.0",
+    "electron-builder": "^19.45.0",
     "eslint": "^4.6.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-react": "^5.0.0",
@@ -46,8 +56,6 @@
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "spawn-sync": "^1.0.15",
-    "styled-components": "^2.2.1",
-    "try-thread-sleep": "^1.0.2"
+    "styled-components": "^2.2.1"
   }
 }
